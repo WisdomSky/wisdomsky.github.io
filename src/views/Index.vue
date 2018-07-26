@@ -13,7 +13,7 @@
         </div>
         <div class="im-lazy">
             <router-link to="/about">About Me</router-link> &bull;
-            <router-link to="/photography">Photography</router-link>
+            <router-link to="/photography">Programmertography</router-link>
         </div>
 
 
