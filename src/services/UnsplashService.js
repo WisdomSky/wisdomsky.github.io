@@ -1,8 +1,6 @@
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/fromPromise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
+import { of, from } from 'rxjs';
+import { map, flatMap } from 'rxjs/operators';
+
 import axios from 'axios';
 
 const UNSPLASH_CLIENT_ID = '09f59a5b506a27d612abc700a46f52e59d5e8eabfa47320c098a77827c9fc36d';
@@ -18,10 +16,11 @@ export default class {
     }
 
     get(action) {
-        return Observable
-            .of(this.endpoint(action))
-            .flatMap((endpoint) => Observable.fromPromise(axios.get(endpoint)))
-            .map(({ data }) => data);
+        return of(this.endpoint(action))
+                .pipe(
+                    flatMap((endpoint) => from(axios.get(endpoint))),
+                    map(({ data }) => data)
+                );
     }
 
 
