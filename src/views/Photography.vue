@@ -17,6 +17,9 @@
                     Is my other hobby...
                 </div>
                 <div class="swipe-me"><<< Just drag to left</div>
+                <div class="powered-by">
+                    Powered by <a href="https://unsplash.com/" target="_blank">Unsplash.com</a>
+                </div>
             </swiper-slide>
             <swiper-slide v-for="(photo, index) in photos" class="gallery-item" :class="{loaded: photo.loaded}" :key="photo.id":style="{height: `${windowHeight}px`, width: `${relativeWidth(photo)}px`}">
                 <spinner class="spinner" v-if="!photo.loaded"></spinner>
@@ -76,7 +79,9 @@
             font-size: 1.5vw;
         }
 
-
+        .powered-by {
+            margin-top: 100px;
+        }
 
         &.standing {
             .attention-seeker {
