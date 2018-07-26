@@ -1,0 +1,15 @@
+@import "variables";
+
+body {
+  background: #171717;
+}
+
+
+a {
+  color: $primaryColor;
+  text-decoration: none;
+
+  &:hover {
+    color: #f00;
+  }
+}
