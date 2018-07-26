@@ -30,3 +30,6 @@ new Vue({
   store,
   render: h => h(App),
 }).$mount('#app')
+
+
+window.WS_VERSION = '1.0.0';
