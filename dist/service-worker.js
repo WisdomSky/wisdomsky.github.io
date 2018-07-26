@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.d65c37ae72cf18d9ff78ea8f98eb82c2.js"
+  "/precache-manifest.d9e9a584719fe3de388be99ae82b50cc.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "wisdomsky"});

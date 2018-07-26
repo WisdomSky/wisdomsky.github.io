@@ -58,7 +58,6 @@
         min-width: 300px;
         position: relative;
         z-index: 1;
-        transition: box-shadow 0.5s;
 
 
 
