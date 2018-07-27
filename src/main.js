@@ -5,7 +5,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './registerServiceWorker'
+
+// uncomment to enable PWA
+// import './registerServiceWorker'
 
 Vue.config.productionTip = false
 

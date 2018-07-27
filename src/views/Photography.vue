@@ -16,7 +16,7 @@
                 <div class="im-lazy">
                     Is my other hobby...
                 </div>
-                <div class="swipe-me"><<< Just drag to left</div>
+                <div class="swipe-me"><<< Just drag to the left</div>
                 <div class="powered-by">
                     Powered by <a href="https://unsplash.com/" target="_blank">Unsplash.com</a>
                 </div>
@@ -99,6 +99,7 @@
     .gallery-item {
         display: inline-block;
         position: relative;
+        overflow: hidden;
 
         .gallery-item-wrapper {
             background: #000;
@@ -132,16 +133,18 @@
 
         img {
             box-sizing: border-box;
-            border: 0 solid #171717;
+            border: 0 solid $darkColor;
             border-top-width: 2px;
             border-bottom-width: 3px;
             opacity: 0;
-            transition: opacity 1s;
+            filter: blur(20px);
+            transition: opacity 1s, filter 1.5s;
         }
 
         &.loaded {
             img {
                 opacity: 1;
+                filter: blur(0px);
             }
         }
 
@@ -196,7 +199,7 @@ export default {
             let slope = 0.0024671052631578946; //(5 - 2) / (1536 - 320)
             let adjuster = (slope * (this.windowWidth - 320)) + 2;
 
-            return `20px 0 ${100 + (this.boxShadowSpread / 20)}px ${100 + (this.boxShadowSpread / adjuster)}px rgba(23,23,23,1)`;
+            return `0 0 ${100 + (this.boxShadowSpread / (adjuster))}px ${100 + (this.boxShadowSpread / adjuster)}px rgba(23,23,23,1)`;
         }
     },
 
