@@ -47,7 +47,7 @@
     .gallery {
         white-space: nowrap;
         overflow-y: hidden;
-        overflow-x: scroll;
+        overflow-x: hidden;
     }
 
     .cover {
