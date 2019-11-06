@@ -24,7 +24,7 @@
             <swiper-slide v-for="(photo, index) in photos" class="gallery-item" :class="{loaded: photo.loaded}" :key="photo.id":style="{height: `${windowHeight}px`, width: `${relativeWidth(photo)}px`}">
                 <spinner class="spinner" v-if="!photo.loaded"></spinner>
                 <div class="gallery-item-wrapper">
-                    <lazy-image :src="photo.urls.full" @loading="loadExif(index)" @load.native="load($event.target.src, index)" :style="{height: `${windowHeight}px`, width: `${relativeWidth(photo)}px`}" :data-gallery-item-index="index"></lazy-image>
+                    <lazy-image :src="photo.urls.small" @loading="loadExif(index)" @load.native="load($event.target.src, index)" :style="{height: `${windowHeight}px`, width: `${relativeWidth(photo)}px`}" :data-gallery-item-index="index"></lazy-image>
                 </div>
                 <transition name="slide">
                     <div class="gallery-item-info" v-if="photo.loaded && photo.info">
@@ -184,7 +184,8 @@ export default {
                 preloadImages: false,
                 mousewheel: true
             },
-            photos: []
+            photos: [],
+            currentPage: 1
         }
     },
 
@@ -200,13 +201,22 @@ export default {
             let adjuster = (slope * (this.windowWidth - 320)) + 2;
 
             return `0 0 ${100 + (this.boxShadowSpread / (adjuster))}px ${100 + (this.boxShadowSpread / adjuster)}px rgba(23,23,23,1)`;
+        },
+        allIsLoaded() {
+            return this.photos.reduce((acc, val) => val.loaded ? ++acc : acc, 0) === this.photos.length
         }
     },
 
+    watch: {
+        allIsLoaded(allIsLoaded) {
+            if (allIsLoaded) {
+                this.getPhotos(++this.currentPage)
+            }
+        },
+    },
+
     created() {
-        PhotoService.getPhotos().subscribe((data) => {
-            this.photos = data;
-        });
+        this.getPhotos(this.currentPage);
     },
     mounted() {
         this.$Lazyload.$on('loading', function (e, formCache) {
@@ -214,6 +224,11 @@ export default {
         })
     },
     methods: {
+        getPhotos(page) {
+            PhotoService.getPhotos(page).subscribe((data) => {
+                this.photos.push(...data);
+            });
+        },
         load(src, index) {
             if (!/^data:.*/.test(src)) {
                 var photo = this.photos[index];

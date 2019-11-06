@@ -15,10 +15,20 @@ export default class {
         return `${API}/${action}?client_id=${UNSPLASH_CLIENT_ID}`;
     }
 
-    get(action) {
+    get(action, params = {}) {
+
+        let flatten_params = "";
+
+        for (let param in params) {
+
+            if (params.hasOwnProperty(param))
+                flatten_params += `&${param}=${params[param]}`;
+        }
+
+
         return of(this.endpoint(action))
                 .pipe(
-                    flatMap((endpoint) => from(axios.get(endpoint))),
+                    flatMap((endpoint) => from(axios.get(endpoint + flatten_params))),
                     map(({ data }) => data)
                 );
     }
