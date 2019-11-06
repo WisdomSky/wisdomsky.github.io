@@ -24,7 +24,7 @@
             <swiper-slide v-for="(photo, index) in photos" class="gallery-item" :class="{loaded: photo.loaded}" :key="photo.id":style="{height: `${windowHeight}px`, width: `${relativeWidth(photo)}px`}">
                 <spinner class="spinner" v-if="!photo.loaded"></spinner>
                 <div class="gallery-item-wrapper">
-                    <lazy-image :src="photo.urls.small" @loading="loadExif(index)" @load.native="load($event.target.src, index)" :style="{height: `${windowHeight}px`, width: `${relativeWidth(photo)}px`}" :data-gallery-item-index="index"></lazy-image>
+                    <lazy-image :src="photo.urls.regular" @loading="loadExif(index)" @load.native="load($event.target.src, index)" :style="{height: `${windowHeight}px`, width: `${relativeWidth(photo)}px`}" :data-gallery-item-index="index"></lazy-image>
                 </div>
                 <transition name="slide">
                     <div class="gallery-item-info" v-if="photo.loaded && photo.info">
